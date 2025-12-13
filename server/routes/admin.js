@@ -4,39 +4,29 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
-// Configure multer for image uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'post-' + uniqueSuffix + path.extname(file.originalname));
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// Configure storage
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'blog-uploads',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif']
   }
 });
 
-const fileFilter = (req, file, cb) => {
-  // Accept images only
-  if (file.mimetype.startsWith('image/')) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only image files are allowed!'), false);
-  }
-};
-
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB limit
-  }
-});
+const upload = multer({ storage: storage });
 
 
 /**
@@ -167,8 +157,8 @@ router.post('/add-post', authMiddleware, upload.fields([{ name: 'image', maxCoun
       const newPost = new Post({
         title: req.body.title,
         body: req.body.body,
-        image: req.files['image'] ? `/uploads/${req.files['image'][0].filename}` : null,
-        image2: req.files['image2'] ? `/uploads/${req.files['image2'][0].filename}` : null
+        image: req.files['image'] ? req.files['image'][0].path : null,
+        image2: req.files['image2'] ? req.files['image2'][0].path : null
       });
 
       await Post.create(newPost);
@@ -224,12 +214,12 @@ router.put('/edit-post/:id', authMiddleware, upload.fields([{ name: 'image', max
 
     // Only update image if a new one was uploaded
     if (req.files['image']) {
-      updateData.image = `/uploads/${req.files['image'][0].filename}`;
+      updateData.image = req.files['image'][0].path;
     }
 
     // Only update image2 if a new one was uploaded
     if (req.files['image2']) {
-      updateData.image2 = `/uploads/${req.files['image2'][0].filename}`;
+      updateData.image2 = req.files['image2'][0].path;
     }
 
     await Post.findByIdAndUpdate(req.params.id, updateData);
