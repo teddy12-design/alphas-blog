@@ -1,0 +1,75 @@
+<a href="/dashboard">&larr; Back</a>
+<div class="admin-title">
+  <h2>View / Edit Post</h2>
+
+  <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
+    <input type="submit" value="Delete" class="btn-delete btn">
+  </form>
+
+</div>
+
+<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+  <label for="title"><b>Title</b></label>
+  <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>" required>
+
+  <label for="image"><b>Post Image (Main)</b></label>
+  <% if (data.image) { %>
+    <div style="margin-bottom: 10px;">
+      <p>Current Image:</p>
+      <img src="<%= data.image %>" alt="Current post image"
+        style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+    </div>
+    <% } %>
+      <input type="file" name="image" id="image" accept="image/*">
+      <small style="display: block; margin-top: 5px; color: #666;">Leave empty to keep current image</small>
+      <div id="imagePreview" style="margin-top: 10px; display: none;">
+        <p>New Image Preview:</p>
+        <img id="preview" src="" alt="Image preview" style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+      </div>
+
+      <label for="image2" style="margin-top: 20px; display: block;"><b>Second Image (Optional)</b></label>
+      <% if (data.image2) { %>
+        <div style="margin-bottom: 10px;">
+          <p>Current Second Image:</p>
+          <img src="<%= data.image2 %>" alt="Current second image"
+            style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+        </div>
+        <% } %>
+          <input type="file" name="image2" id="image2" accept="image/*">
+          <small style="display: block; margin-top: 5px; color: #666;">Leave empty to keep current second image</small>
+          <div id="imagePreview2" style="margin-top: 10px; display: none;">
+            <p>New Image 2 Preview:</p>
+            <img id="preview2" src="" alt="Image 2 preview"
+              style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+          </div>
+
+          <label for="body"><b>Content</b></label>
+          <textarea name="body" cols="50" rows="10" required><%= data.body %></textarea>
+
+          <input type="submit" value="Update" class="btn">
+
+</form>
+
+<script>
+  // Image preview functionality
+  function setupPreview(inputId, previewId, containerId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    input.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById(previewId).src = e.target.result;
+          document.getElementById(containerId).style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  setupPreview('image', 'preview', 'imagePreview');
+  setupPreview('image2', 'preview2', 'imagePreview2');
+</script>

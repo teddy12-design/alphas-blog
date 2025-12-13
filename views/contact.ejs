@@ -1,0 +1,242 @@
+<div class="contact-container">
+    <h1>Contact Us</h1>
+
+    <% if (typeof successMessage !=='undefined' && successMessage) { %>
+        <div class="message success">
+            <%= successMessage %>
+        </div>
+        <% } %>
+
+            <% if (typeof errorMessage !=='undefined' && errorMessage) { %>
+                <div class="message error">
+                    <%= errorMessage %>
+                </div>
+                <% } %>
+
+                    <div class="contact-content">
+                        <div class="contact-info">
+                            <h2>Get in Touch</h2>
+                            <p>We'd love to hear from you! Whether you have a question about our blog, feedback, or just
+                                want to say hello, feel free to reach out.</p>
+
+                            <div class="contact-details">
+                                <div class="contact-item">
+                                    <h3>📧 Email</h3>
+                                    <p><a href="mailto:toshirohitsugaua@gmail.com">toshirohitsugaua@gmail.com</a></p>
+                                </div>
+
+                                <div class="contact-item">
+                                    <h3>📱 Phone</h3>
+                                    <p>+251 969602557</p>
+                                </div>
+
+                                <div class="contact-item">
+                                    <h3>📍 Address</h3>
+                                    <p>BAHIR DAR<br>Tech City, TC 12345<br>ETHIOPIA</p>
+                                </div>
+
+                                <div class="contact-item">
+                                    <h3>🌐 Social Media</h3>
+                                    <p>
+                                         <a href="https://www.instagram.com/tovitaura?igsh=MWw0d2FvZDQ3aTJ0" target="_blank">Instagram</a> |
+                                        <a href="https://x.com/tewodros360012?t=8ZuL9bpmmEDkGx-atrKCIg&s=09" target="_blank">Twitter</a> |
+                                        <a href="https://www.linkedin.com/in/tewodros-hulgizie-aa70b838b?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">LinkedIn</a> |
+                                        <a href="https://github.com/teddy12-design" target="_blank">GitHub</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-form-section">
+                            <h2>Send us a Message</h2>
+                            <form class="contact-form" action="/contact" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Name *</label>
+                                    <input type="text" id="name" name="name" required placeholder="Your name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" required
+                                        placeholder="your.email@example.com">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject">Subject *</label>
+                                    <input type="text" id="subject" name="subject" required
+                                        placeholder="What's this about?">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message">Message *</label>
+                                    <textarea id="message" name="message" rows="6" required
+                                        placeholder="Your message here..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-submit">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+</div>
+
+<style>
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    .contact-container h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #333;
+    }
+
+    .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 30px;
+    }
+
+    .contact-info h2,
+    .contact-form-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    .contact-info p {
+        line-height: 1.8;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .contact-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    .contact-item p {
+        margin: 0;
+        color: #666;
+    }
+
+    .contact-item a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .contact-item a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #444;
+        font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: inherit;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .btn-submit {
+        background-color: #007bff;
+        color: white;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-top: 10px;
+    }
+
+    .btn-submit:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .btn-submit:active {
+        transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .contact-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .contact-container h1 {
+            font-size: 2rem;
+        }
+
+        .contact-info h2,
+        .contact-form-section h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Success/Error Messages */
+    .message {
+        padding: 15px 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+</style>

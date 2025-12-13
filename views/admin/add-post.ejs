@@ -1,0 +1,51 @@
+<a href="/dashboard">&larr; Back</a>
+<div class="admin-title">
+  <h2>Add New Post</h2>
+</div>
+
+<form action="/add-post" method="POST" enctype="multipart/form-data">
+
+  <label for="title"><b>Title</b></label>
+  <input type="text" placeholder="Post Title" name="title" required>
+
+  <label for="image"><b>Post Image (Main)</b></label>
+  <input type="file" name="image" id="image" accept="image/*">
+  <div id="imagePreview" style="margin-top: 10px; display: none;">
+    <img id="preview" src="" alt="Image preview" style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+  </div>
+
+  <label for="image2"><b>Second Image (Optional)</b></label>
+  <input type="file" name="image2" id="image2" accept="image/*">
+  <div id="imagePreview2" style="margin-top: 10px; display: none;">
+    <img id="preview2" src="" alt="Image 2 preview" style="max-width: 300px; max-height: 300px; border-radius: 8px;">
+  </div>
+
+  <label for="body"><b>Content</b></label>
+  <textarea name="body" cols="50" rows="10" required></textarea>
+
+  <input type="submit" value="Add" class="btn">
+
+</form>
+
+<script>
+  // Image preview functionality
+  function setupPreview(inputId, previewId, containerId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+
+    input.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById(previewId).src = e.target.result;
+          document.getElementById(containerId).style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  setupPreview('image', 'preview', 'imagePreview');
+  setupPreview('image2', 'preview2', 'imagePreview2');
+</script>

@@ -1,0 +1,103 @@
+<h3>Sign In</h3>
+
+<% if (typeof errorMessage !=='undefined' && errorMessage) { %>
+  <div
+    style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 5px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
+    <%= errorMessage %>
+  </div>
+  <% } %>
+
+    <form action="/admin" method="POST">
+
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username">
+
+      <label for="password"><b>Password</b></label>
+      <div class="password-container">
+        <input type="password" placeholder="Enter Password" name="password" id="loginPassword">
+        <span class="toggle-password" onclick="togglePassword('loginPassword', this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-eye">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </span>
+      </div>
+
+      <input type="submit" value="Login" class="btn">
+
+    </form>
+
+    <div style="margin: 40px 0; border-top: 1px solid #ddd; position: relative; text-align: center;">
+      <span style="background: #fff; padding: 0 15px; position: relative; top: -12px; color: #666;">OR</span>
+    </div>
+
+    <h3>Register New Account</h3>
+    <form action="/register" method="POST">
+
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+
+      <label for="password"><b>Password</b></label>
+      <div class="password-container">
+        <input type="password" placeholder="Enter Password" name="password" id="registerPassword" required>
+        <span class="toggle-password" onclick="togglePassword('registerPassword', this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-eye">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </span>
+      </div>
+
+      <input type="submit" value="Register" class="btn" style="background-color: #28a745;">
+
+    </form>
+
+    <style>
+      .password-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .password-container input {
+        width: 100%;
+        padding-right: 40px;
+        /* Make room for the icon */
+        box-sizing: border-box;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #666;
+        display: flex;
+        align-items: center;
+      }
+
+      .toggle-password:hover {
+        color: #000;
+      }
+    </style>
+
+    <script>
+      function togglePassword(inputId, iconSpan) {
+        const input = document.getElementById(inputId);
+        const icon = iconSpan.querySelector('svg');
+
+        if (input.type === "password") {
+          input.type = "text";
+          // Change icon to eye-off
+          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+        } else {
+          input.type = "password";
+          // Change icon back to eye
+          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
+        }
+      }
+    </script>
