@@ -64,8 +64,11 @@ app.use((req, res, next) => {
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-});
+// Only start the server if not running on Vercel
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+  });
+}
 
 module.exports = app;
