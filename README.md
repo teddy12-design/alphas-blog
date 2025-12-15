@@ -1,6 +1,5 @@
 # NodeJs, Express, EJS & MongoDB Blog - CRUD
 
-![alt text](/readme-image.jpg?raw=true)
 
 ## You need:
 - NodeJs
@@ -27,19 +26,3 @@ $ npm run dev
 
 ## Design Files
 The Blog layout is in a Figma(.fig) file under the "Design Files".
-
-[View Live Figma Prototype](https://www.figma.com/proto/Vpc5J1ajnwDTT96q0IUFDJ/NodeJs-Blog?page-id=0%3A1&type=design&node-id=48-119&viewport=-194%2C377%2C0.17&scaling=min-zoom&starting-point-node-id=48%3A119)
-
-
-### YouTube Channels
-
-[Subscribe to TheNetNinja](https://www.youtube.com/@NetNinja)
-
-[Subscribe to RaddyDev](https://www.youtube.com/@RaddyDev)
-
-
-### Website
-[www.raddy.dev](https://www.raddy.dev)
-
-### Donations
-[Buy me a Coffee](https://www.buymeacoffee.com/RaddyTheBrand)
