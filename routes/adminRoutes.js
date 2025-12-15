@@ -80,13 +80,21 @@ router.post('/admin', async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.render('admin/index', {
+        locals: { title: "Admin", description: "Simple Blog" },
+        layout: adminLayout,
+        errorMessage: 'Invalid credentials'
+      });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return res.render('admin/index', {
+        locals: { title: "Admin", description: "Simple Blog" },
+        layout: adminLayout,
+        errorMessage: 'Invalid credentials'
+      });
     }
 
     const token = jwt.sign({ userId: user._id }, jwtSecret);
