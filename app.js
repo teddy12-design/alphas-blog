@@ -9,6 +9,9 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 require('dotenv').config();
 
+// Quick connection test
+console.log("Mongo URL:", process.env.MONGO_URL ? "loaded" : "missing");
+
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
@@ -31,13 +34,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
 
+if (!process.env.MONGO_URL) {
+  throw new Error("MONGO_URL is missing");
+}
+
 app.use(session({
   name: "blog-session",
   secret: process.env.SESSION_SECRET || 'keyboard cat',
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI
+    mongoUrl: process.env.MONGO_URL
   }),
   cookie: {
     httpOnly: true,
